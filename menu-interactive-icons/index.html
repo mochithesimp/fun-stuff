@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Icon Menu</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/scripts.js"></script>
 </head>
 
 <body>
+
     <ul class="menu">
+
         <div class="menuToggle"><ion-icon name="add-outline"></ion-icon></div>
+
         <li style="--i: 0; --clr: #ff2972">
             <a href="#"><ion-icon name="home-outline"></ion-icon></a>
         </li>
@@ -36,15 +41,45 @@
             <a href="#"><ion-icon name="videocam-outline"></ion-icon></a>
         </li>
     </ul>
+
+    <audio id="toggleSound">
+        <source src="audio/close.mp3" type="audio/mpeg">
+        <source src="audio/close.ogg" type="audio/ogg">
+    </audio>
+    <audio id="openSound">
+        <source src="audio/open.mp3" type="audio/mpeg">
+        <source src="audio/open.ogg" type="audio/ogg">
+    </audio>
+    <audio id="hoverSound">
+        <source src="audio/beep.mp3" type="audio/mpeg">
+        <source src="audio/beep.ogg" type="audio/ogg">
+    </audio>
+
+    <script>
+        $(document).ready(function () {
+            var toggleSound = $("#toggleSound")[0];
+            var openSound = $("#openSound")[0];
+            var hoverSound = $("#hoverSound")[0];
+            let menuToggle = document.querySelector(".menuToggle");
+            let menu = document.querySelector(".menu");
+            menuToggle.onclick = function () {
+                menu.classList.toggle("active");
+                toggleSound.currentTime = 0;
+                toggleSound.play();
+                if (menu.classList.contains("active")) {
+                    openSound.currentTime = 0;
+                    openSound.play();
+                }
+            };
+            $("a").mouseenter(function () {
+                hoverSound.currentTime = 0;
+                hoverSound.play();
+            });
+        });
+    </script>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script>
-        let menuToggle = document.querySelector(".menuToggle");
-        let menu = document.querySelector(".menu");
-        menuToggle.onclick = function () {
-            menu.classList.toggle("active");
-        };
-    </script>
 </body>
 
 </html>
